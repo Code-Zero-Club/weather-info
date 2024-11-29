@@ -3,13 +3,13 @@ import json
 import requests
 import os
 
+# API 키값 불러오기
 WEATHER_API_KEY = os.environ.get('WEATHER_API_KEY')
 NAVER_CLIENT_ID = os.environ.get('NAVER_CLIENT_ID')
 NAVER_CLIENT_SECRET = os.environ.get('NAVER_CLIENT_SECRET')
 
+# API URL 지정
 WEATHER_API_URL = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst"
-
-# 네이버 API 설정
 NAVER_NEWS_URL = "https://openapi.naver.com/v1/search/news.json"
 
 def get_weather_json() -> dict:
