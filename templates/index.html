@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>날씨와 뉴스 정보</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            display: grid;
+            gap: 20px;
+        }
+
+        .weather-container, .news-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .weather-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .weather-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .weather-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #1a73e8;
+        }
+
+        .news-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-title {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .news-title:hover {
+            text-decoration: underline;
+        }
+
+        .news-description {
+            margin-top: 5px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        h1 {
+            color: #1a73e8;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .weather-info {
+                grid-template-columns: 1fr;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            padding: 20px;
+            background-color: #f8d7da;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>날씨와 뉴스 정보</h1>
+        
+        {% if weather.error %}
+        <div class="error-message">
+            {{ weather.error }}
+        </div>
+        {% else %}
+        <div class="weather-container">
+            <h2>현재 날씨</h2>
+            <div class="weather-info">
+                <div class="weather-item">
+                    <div>기온</div>
+                    <div class="weather-value">{{ weather.temperature }}℃</div>
+                </div>
+                <div class="weather-item">
+                    <div>습도</div>
+                    <div class="weather-value">{{ weather.humidity }}%</div>
+                </div>
+                <div class="weather-item">
+                    <div>강수량</div>
+                    <div class="weather-value">{{ weather.precipitation }}</div>
+                </div>
+                <div class="weather-item">
+                    <div>하늘상태</div>
+                    <div class="weather-value">{{ weather.sky }}</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="news-container">
+            <h2>날씨 관련 뉴스</h2>
+            {% if news %}
+                {% for item in news %}
+                <div class="news-item">
+                    <a href="{{ item.link }}" class="news-title" target="_blank">
+                        {{ item.title|safe }}
+                    </a>
+                    <div class="news-description">
+                        {{ item.description|safe }}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center; color: #666;">
+                    현재 표시할 뉴스가 없습니다.
+                </p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

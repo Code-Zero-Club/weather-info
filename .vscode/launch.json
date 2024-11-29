@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debugging: Launch Server",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${cwd}/app.py",
+            "console": "integratedTerminal"
+        }
+    ]
+}
